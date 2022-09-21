@@ -1,0 +1,136 @@
+
+import pygame=To use the methods in the Pygame library, the module must first be imported
+pygame.init()=to inatalize pygame
+pygame.quit()=to quit game
+screen = pygame.display.set_mode((height, width))=set a window as surface varaible
+for event in pygame.event.get():=event loop which checks mouse movement ,keypress,mouse click inside game window (it is defined under infinite loop )
+if event.type == pygame.QUIT:=check if cross sign is pressed
+pygame.quit()=quit game
+
+We do everything inside event loop and we display update 
+        screen.fill((r,g,b))
+        pygame.display.update()
+    
+ [ The pygame.locals module contains some 280 constants used and defined by pygme. Placing this statement at
+the beginning of your programm imports them all:
+from pygame.locals import *]
+
+[We find the key modifiers (alt, ctrl, cmd, etc.)
+KMOD_ALT, KMOD_CAPS, KMOD_CTRL, KMOD_LALT,
+KMOD_LCTRL, KMOD_LMETA, KMOD_LSHIFT, KMOD_META,
+KMOD_MODE, KMOD_NONE, KMOD_NUM, KMOD_RALT, KMOD_RCTRL,
+KMOD_RMETA, KMOD_RSHIFT, KMOD_SHIFT,
+the number keys:
+K_0, K_1, K_2, K_3, K_4, K_5, K_6, K_7, K_8, K_9,
+the special character keys:
+K_AMPERSAND, K_ASTERISK, K_AT, K_BACKQUOTE,
+K_BACKSLASH, K_BACKSPACE, K_BREAK,
+the letter keys of the alphabet:
+K_a, K_b, K_c, K_d, K_e, K_f, K_g, K_h, K_i, K_j, K_k, K_l, K_m,
+K_n, K_o, K_p, K_q, K_r, K_s, K_t, K_u, K_v, K_w, K_x, K_y, K_z,
+]
+we can make a dictonary in python and associate with the keys and give a function like
+we have to give values of all colors defined
+key_dict = {K_k:BLACK, K_r:RED, K_g:GREEN, K_b:BLUE,
+K_y:YELLOW, K_c:CYAN, K_m:MAGENTA, K_w:WHITE}
+now we can change color by pressing the keys
+if event.type == KEYDOWN:
+if event.key in key_dict:
+background = key_dict[event.key]
+
+drawing shapes
+pygame.draw
+rect(Surface, color, Rect, width) -> Rect
+polygon(Surface, color, pointlist, width) -> Rect
+circle(Surface, color, center, radius, width) -> Rect
+Most of the functions take a width argument. If the width is 0, the shape is filled
+
+working with rectangles
+Rect(left, top, width, height)
+Rect(pos, size)
+Rect(obj)
+
+LOADING IMAGE
+pygme.image
+img = pygame.image.load('imagefile')
+img.convert()# optmize image and make drawing faster
+rect = img.get_rect() #returns surface object from imagefile
+rect.center = w//2, h//2#centre the image
+screen.blit(img, rect)#to show image
+pygame.draw.rect(img, (0,255,0), rect, 1)#to show rectangular border of image
+
+
+WORKING WITH TEXT
+In pygame, text cannot be written directly to the screen. The first step is to create a Font object with a given font size.
+The second step is to render the text into an image with a given color. The third step is to blit the image to the screen.
+These are the steps:
+font = pygame.font.SysFont(None, 24)
+img = font.render('hello', True, BLUE)
+screen.blit(img, (20, 20))
+font size once created cannot be changed
+
+MAKING APP OR CLASS APP
+here we follow oop and use class and objects
+creating app class used for """Create a single-window app with multiple scenes."""
+class App:
+        def __init__(self):#inialize pygame
+                pygame.init()
+                flags = RESIZABLE
+                App.screen = pygame.display.set_mode((640, 240), flags)
+                App.running = True
+def run(self):#main loop
+        while App.running:
+                for event in pygame.event.get():
+                        if event.type == QUIT:
+                        App.running = False
+        pygame.quit()
+At the end of the module we run a demo, if the programm is run directly and not imported as a module:
+if __name__ == '__main__':
+        App().run()
+
+ADDING TEXT CLASS
+class Text:#defining text variables
+        def __init__(self, text, pos, **options):
+                self.text = text
+                self.pos = pos
+                self.fontname = None
+                self.fontsize = 72
+                self.fontcolor = Color('black')
+                self.set_font()
+                self.render()
+
+def set_font(self):#Set the font from its name and size.
+        self.font = pygame.font.Font(self.fontname, self.fontsize)
+
+
+def render(self):#Render the text into an image.
+        self.img = self.font.render(self.text, True, self.fontcolor)
+        self.rect = self.img.get_rect()
+        self.rect.topleft = self.pos
+
+def draw(self):#Draw the text image to the screen.
+        App.screen.blit(self.img, self.rect)
+
+SHORTCUT keys
+it can be set by defining a dictonary of keys and defining function for its working
+
+Window screen size
+Inside the App class __init__() method we first define the screen size and the display mode flags, and then create
+the screen surface:
+self.flags = RESIZABLE #we can also set to fullscreen and no frame mode
+self.rect = Rect(0, 0, 640, 240)
+App.screen = pygame.display.set_mode(self.rect.size, self.flags)
+
+SCREEN CLASS
+to make different scenes
+We make a class and a variable initialized by construcuor then we make function with its scenes function and checking and updating a variable we manage scenes by another function
+
+
+
+
+GRAPHICAL USER INTERFACE(GUI)
+elements for user to interact
+ 
+ Text attributes
+ 
+ 
